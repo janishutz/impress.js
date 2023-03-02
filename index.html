@@ -216,8 +216,8 @@
             <div class="column">
                 <ul>
                     <li>a) Leonhard Euler</li>
-                    <li>b) Eulerian framework with a fixed computational grid</li>
-                    <li>c) Lagrangian framework, ensemble of points moving in the airflow</li>
+                    <li>b) Abordagem Euleriano com grade computacional fixa</li>
+                    <li>c) Abordagem Lagrangiano, com pontos se desplazando nas massas de ar</li>
                     <li>d) Joseph Louis Lagrange</li>
                 </ul><br>
             </div>
@@ -238,14 +238,16 @@
 
     <div class="step slide" data-x="6000" data-y="-3000" rotate="90">
         <h1> <strong> Equações fundamentais</strong></h1>
-        <ul>
-            <li>Lei dos gases</li>
-            <li>Equações de conservação de massa</li>
-            <li>Momentum</li>
-            <li>Umidade</li>
-            <li>Calor</li>
-          </ul>
+                <ul>
+                    <li>Lei dos gases</li>
+                    <li>Equações de conservação de massa</li>
+                    <li>Momentum</li>
+                    <li>Umidade</li>
+                    <li>Calor</li>
+                  </ul>
+    
     </div>
+
 
     <div class="step slide" data-x="7000" data-y="-3000" rotate="90">
         $$\frac{du}{dt} - fv + \frac{1}{\rho} \cdot \frac{dp}{dx}= 0 $$
@@ -257,9 +259,34 @@
     </div>
 
     <div class="step slide" data-x="8000" data-y="-3000" rotate="90">
+        Estas equações são expressadas como equaçõesdiferenciais parciais <br>
+        É precisa a condição de <italic>existencia e unicidade</italic> <br>
+        <strong>A solução tem que existir</strong><br>
+        <strong>A solução tem que ser unica</strong><br><br>
+        A condição inicial pode ser data pela observação ou de um modelo geral
+        As condições de contorno são necessarias para definir valores na borda.
+    </div>
+
+
+    <div class="step slide" data-x="8000" data-y="-3000" rotate="90">
         <h1> <strong> Atmosfera</strong></h1>
 
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/Atmosphere_layers-pt.svg/170px-Atmosphere_layers-pt.svg.png" style="transform:rotate(90deg);">
+        <div class="row">
+            <div class="column">
+                razão de mistura $mol \cdot mol^{-1}$
+                <ul>
+                    <li>a) Nitrogenio ($N_2$) 0.78</li>
+                    <li>b) Oxigenio ($O_2$) 0.21</li>
+                    <li>c) Argon (Ar) 0.0093</li>
+                    <li>d) $CO_2$ 400*10^6 </li>
+                </ul><br>
+            </div>
+            <div class="column">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/Atmosphere_layers-pt.svg/170px-Atmosphere_layers-pt.svg.png" width = "200" height="600"> 
+            </div>
+        </div>
+
+
     </div>
 
     <!--
