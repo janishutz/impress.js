@@ -181,3 +181,6 @@ body.impress-mouse-timeout {
     display: table;
     clear: both;
   }
+  .step .notes {
+    display: none;
+  }
