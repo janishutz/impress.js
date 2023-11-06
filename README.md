@@ -36,9 +36,7 @@ You can include this link directly inside of your HTML file in its header. If yo
 - V2.0.0: https://cdn.jsdelivr.net/gh/impress/impress.js@2.0.0/js/impress.js
 - V1.1.0: https://cdn.jsdelivr.net/gh/impress/impress.js@1.1.0/js/impress.js
 - Source: https://cdn.jsdelivr.net/gh/impress/impress.js/js/impress.js
-
-### Getting Started Guide
-Check out our new [Getting Started](GettingStarted.md) guide if you want a quick introduction to the project!
+  
 
 ### Checking out and initializing the git repository
 
@@ -54,18 +52,17 @@ New features and fixes are continuously merged into the master branch, which is 
 
 ### Documentation
 
-
 Reference documentation of core impress.js features and API you can find it in [DOCUMENTATION.md](DOCUMENTATION.md).
 
-The [HTML source code](index.html) of the official [impress.js demo](http://impress.github.io/impress.js/) serves as a good example usage and contains comments explaining various features of impress.js. For more information about styling you can look into [CSS code](css/impress-demo.css) which shows how classes provided by impress.js can be used. Last but not least [JavaScript code of impress.js](js/impress.js) has some useful comments if you are interested in how everything works. Feel free to explore!
+The [HTML source code](index.html) of the official [impress.js demo](http://impress.js.org/) serves as a good example usage and contains comments explaining various features of impress.js. For more information about styling you can look into [CSS code](css/impress-demo.css) which shows how classes provided by impress.js can be used. Last but not least [JavaScript code of impress.js](js/impress.js) has some useful comments if you are interested in how everything works. Feel free to explore!
 
 ### Official demo
 
-[impress.js demo](http://impress.github.io/impress.js/) by [@bartaz](http://twitter.com/bartaz)
+[impress.js demo](http://impress.js.org/) by [@bartaz](http://twitter.com/bartaz)
 
 ### Examples and demos
 
-The [Classic Slides](http://impress.github.io/impress.js/examples/classic-slides/) demo is targeted towards beginners, or can be used as a template for presentations that look like the traditional PowerPoint slide deck. Over time, it also grew into the example presentation that uses most of the features and addons available.
+The [Classic Slides](http://impress.js.org/examples/classic-slides/) demo is targeted towards beginners, or can be used as a template for presentations that look like the traditional PowerPoint slide deck. Over time, it also grew into the example presentation that uses most of the features and addons available.
 
 More examples and demos can be found on [Examples and demos wiki page](http://github.com/impress/impress.js/wiki/Examples-and-demos).
 
