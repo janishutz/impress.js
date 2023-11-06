@@ -1,10 +1,26 @@
-impress.js
-============
+<div id="title" align="center">
+    <img src="./logo.png" width="300">
+    <h1>impress.js</h1>
+</div>
 
-[![CircleCI](https://circleci.com/gh/impress/impress.js.svg?style=svg)](https://circleci.com/gh/impress/impress.js)
+<div id="badges" align="center">
+    <img alt="Project License" src="https://img.shields.io/github/license/impress/impress.js.svg">
+    <img alt="GitHub Repo size" src="https://img.shields.io/github/repo-size/impress/impress.js.svg">
+    <img alt="GitHub Repo issues" src="https://img.shields.io/github/issues-pr-raw/impress/impress.js">
+    <a href="https://circleci.com/gh/impress/impress.js"><img alt="CircleCI" src="https://circleci.com/gh/impress/impress.js.svg?style=svg"></a>
+    <br>
+    <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/impress/impress.js">
+    <img alt="GitHub watchers" src="https://img.shields.io/github/watchers/impress/impress.js">
+    <img alt="GitHub forks" src="https://img.shields.io/github/forks/impress/impress.js">
+    <img alt="GitHub commit activity" src="https://img.shields.io/github/commit-activity/m/impress/impress.js">
+    <br>
+    <img alt="GitHub all releases" src="https://img.shields.io/github/downloads/impress/impress.js/total?label=Downloads (total)">
+    <img alt="GitHub release (latest by date)" src="https://img.shields.io/github/downloads/impress/impress.js/latest/total?label=Downloads (latest)">
+    <img alt="Latest release" src="https://img.shields.io/github/release/impress/impress.js.svg">
+</div>
 
-It's a presentation framework based on the power of CSS3 transforms and
-transitions in modern browsers and inspired by the idea behind prezi.com.
+impress.js is a presentation framework written in JavaScript that uses the power
+of CSS3 transistions and transforms. It is inspired by the idea behind prezi.com
 
 **WARNING**
 
