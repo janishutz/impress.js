@@ -12,7 +12,6 @@
     <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/impress/impress.js">
     <img alt="GitHub watchers" src="https://img.shields.io/github/watchers/impress/impress.js">
     <img alt="GitHub forks" src="https://img.shields.io/github/forks/impress/impress.js">
-    <img alt="GitHub commit activity" src="https://img.shields.io/github/commit-activity/m/impress/impress.js">
     <br>
     <img alt="GitHub all releases" src="https://img.shields.io/github/downloads/impress/impress.js/total?label=Downloads (total)">
     <img alt="GitHub release (latest by date)" src="https://img.shields.io/github/downloads/impress/impress.js/latest/total?label=Downloads (latest)">
