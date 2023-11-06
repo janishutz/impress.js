@@ -1,5 +1,5 @@
 <div id="title" align="center">
-    <img src="./logo.png" width="300">
+    <img src="./logo.jpg" width="300">
     <h1>impress.js</h1>
 </div>
 
