@@ -33,7 +33,7 @@ window.impress = () => {
 
     // this function is used to initialize impress. It calls various private functions that initialize
     // various components
-    var init = () => {
+    var init: Function = () => {
         console.log( 'init' );
     };
 
@@ -48,21 +48,41 @@ window.impress = () => {
      * Returns true if successful at positioning this element, false, if failed
      * @param {string} DOMElementID
      * @param {object} coordinates
+     * @param {number} coordinates.x The translation in direction of x-axis
+     * @param {number} coordinates.y The translation in direction of y-axis
+     * @param {number} coordinates.z The translation in direction of z-axis
      * @param {object} rotation
+     * @param {number} rotation.x The rotation in degrees around the x-axis
+     * @param {number} rotation.y The rotation in degrees around the y-axis
+     * @param {number} rotation.z The rotation in degrees around the z-axis
      * @return {boolean}
      */
-    var addElement = ( DOMElementID, coordinates, rotation ) => {
+    var addElement: Function = ( DOMElementID, coordinates, rotation ) => {
         console.log( 'element added' );
         return true;
     };
 
     /**
-     * Description
-     * @param {any} DOMElementID
-     * @return {any}
+     * This function allows you to remove an element from the virtual canvas. Essentially,
+     * impress.js just hides this element and ignores it in translations & rotations
+     * @param {string} DOMElementID The element that is removed. Has to be the element ID of a DOM element
+     * @return {boolean}
      */
-    var removeElement = ( DOMElementID ) => {
+    var removeElement = ( DOMElementID: string ): boolean => {
+        return true;
     };
+
+    /**
+     * Description
+     * @param {object} coordinates
+     * @param {object} rotation
+     * @returns {promise}
+     */
+    var moveTo = ( coordinates: object, rotation: object ): Promise<any> => {
+        return new Promise( ( resolve, reject ) => {
+            
+        } );
+    }
 
     return {
         init
