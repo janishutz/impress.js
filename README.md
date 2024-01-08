@@ -26,19 +26,22 @@ of CSS3 transistions and transforms. It is inspired by the idea behind prezi.com
 impress.js may not help you if you have nothing interesting to say ;)
 
 
-HOW TO USE IT
----------------
+***THIS VERSION IS UNSTABLE AND INCOMPLETE. Please use the [upstream version](https://github.com/impress/impress.js) (V2.1.0)!***
+
+A rewrite of this README file is also ongoing, therefore it also contains comments and some unfinished sections, as well as the fact that it looks kinda awful with the partial changes that I have made so far.
+
+# HOW TO USE IT
 ### Getting Started Guide
 Check out our new [Getting Started](GettingStarted.md) guide if you want a quick introduction to the project!
 
-### Direct download link to only impress.js
+## Direct download link to only impress.js
 You can include this link directly inside of your HTML file in its header. If you want to learn how to do this, you can find a how-to in the [Getting Started](GettingStarted.md) guide.
 - V2.0.0: https://cdn.jsdelivr.net/gh/impress/impress.js@2.0.0/js/impress.js
 - V1.1.0: https://cdn.jsdelivr.net/gh/impress/impress.js@1.1.0/js/impress.js
 - Source: https://cdn.jsdelivr.net/gh/impress/impress.js/js/impress.js
   
 
-### Checking out and initializing the git repository
+## Checking out and initializing the git repository
 
     git clone --recursive https://github.com/impress/impress.js.git
     cd impress.js
@@ -50,17 +53,17 @@ Note: For a minimal checkout, omit the `--recursive` option. This will leave out
 New features and fixes are continuously merged into the master branch, which is what the above command will check out. For the latest stable release, see the [Github Releases page](https://github.com/impress/impress.js/releases).
 
 
-### Documentation
+## Documentation
 
 Reference documentation of core impress.js features and API you can find it in [DOCUMENTATION.md](DOCUMENTATION.md).
 
 The [HTML source code](index.html) of the official [impress.js demo](http://impress.js.org/) serves as a good example usage and contains comments explaining various features of impress.js. For more information about styling you can look into [CSS code](css/impress-demo.css) which shows how classes provided by impress.js can be used. Last but not least [JavaScript code of impress.js](js/impress.js) has some useful comments if you are interested in how everything works. Feel free to explore!
 
-### Official demo
+## Official demo
 
 [impress.js demo](http://impress.js.org/) by [@bartaz](http://twitter.com/bartaz)
 
-### Examples and demos
+## Examples and demos
 
 The [Classic Slides](http://impress.js.org/examples/classic-slides/) demo is targeted towards beginners, or can be used as a template for presentations that look like the traditional PowerPoint slide deck. Over time, it also grew into the example presentation that uses most of the features and addons available.
 
@@ -68,7 +71,7 @@ More examples and demos can be found on [Examples and demos wiki page](http://gi
 
 Feel free to add your own example presentations (or websites) there.
 
-### Other tutorials and learning resources
+## Other tutorials and learning resources
 
 If you want to learn even more there is a [list of tutorials and other learning resources](https://github.com/impress/impress.js/wiki/impress.js-tutorials-and-other-learning-resources)
 on the wiki, too.
@@ -77,13 +80,14 @@ There is also a book available about [Building impressive presentations with imp
 
 You may want to check out the sibling project [Impressionist](https://github.com/henrikingo/impressionist): a 3D GUI editor that can help you in creating impress.js presentations.
 
-### Mailing list
+## Mailing list
 
 You're welcome to ask impress.js related questions on the [impressionist-presentations](https://groups.google.com/forum/#!forum/impressionist-presentations) mailing list.
 
+TODO: We should migrate to a different kind of mailing list
 
-REPOSITORY STRUCTURE
---------------------
+
+# REPOSITORY STRUCTURE
 
 * [index.html](index.html): This is the official impress.js demo, showcasing all of the features of the original impress.js, as well as some new plugins as we add them.
   * As already mentioned, this file is well commented and acts as the official tutorial.
