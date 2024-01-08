@@ -3,7 +3,8 @@ module.exports = {
         'browser': true,
         'es6': true
     },
-    'extends': 'eslint:recommended',
+    'extends': ['eslint:recommended',
+        'plugin:@typescript-eslint/recommended'],
     'globals': {
         'Atomics': 'readonly',
         'SharedArrayBuffer': 'readonly'
@@ -11,6 +12,8 @@ module.exports = {
     'parserOptions': {
         'ecmaVersion': 2022
     },
+    'parser': '@typescript-eslint/parser',
+    'plugins': ['@typescript-eslint'],
     'rules': {
         'accessor-pairs': 'error',
         'array-bracket-newline': 'error',

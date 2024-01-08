@@ -28,16 +28,25 @@
 // as well as loading impress plugins from the ./plugins directory. A fully built impress.js version
 // has all of these files combined into a single file, as to enable a simple include.
 
+interface Window {
+    impress: Function;
+}
+
 window.impress = () => {
     'use strict';
-
-    // this function is used to initialize impress. It calls various private functions that initialize
-    // various components
-    var init: Function = () => {
+    /**
+     * This function is used to initialize impress. It calls some prep functions and then loads
+     * all plugins that are registered. By default, these are the built-in plugins. You can define
+     * which plugins are loaded by passing in an array of plugin-functions into the init function
+     * @param {Array<String>}  [pluginsToLoad]
+     * @returns {undefined}
+     */
+    var init: Function = ( pluginsToLoad?: Array<String> ): undefined => {
+        if ( typeof pluginsToLoad !== 'undefined' ) {
+            
+        }
         console.log( 'init' );
     };
-
-    // This function can be used to add new elements to the impress 3D-API
 
     /**
      * Use this function to create a new element on the virtual canvas of impress.js
@@ -55,9 +64,9 @@ window.impress = () => {
      * @param {number} rotation.x The rotation in degrees around the x-axis
      * @param {number} rotation.y The rotation in degrees around the y-axis
      * @param {number} rotation.z The rotation in degrees around the z-axis
-     * @return {boolean}
+     * @returns {boolean}
      */
-    var addElement: Function = ( DOMElementID, coordinates, rotation ) => {
+    var addElement: Function = ( DOMElementID: string, coordinates: { x: number; y: number; z: number; }, rotation: { x: number; y: number; z: number; } ): boolean => {
         console.log( 'element added' );
         return true;
     };
@@ -66,7 +75,7 @@ window.impress = () => {
      * This function allows you to remove an element from the virtual canvas. Essentially,
      * impress.js just hides this element and ignores it in translations & rotations
      * @param {string} DOMElementID The element that is removed. Has to be the element ID of a DOM element
-     * @return {boolean}
+     * @returns {boolean}
      */
     var removeElement = ( DOMElementID: string ): boolean => {
         return true;
