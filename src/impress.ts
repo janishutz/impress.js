@@ -33,7 +33,6 @@ interface Window {
 }
 
 window.impress = () => {
-    'use strict';
     /**
      * This function is used to initialize impress. It calls some prep functions and then loads
      * all plugins that are registered. By default, these are the built-in plugins. You can define
@@ -43,7 +42,7 @@ window.impress = () => {
      */
     var init: Function = ( pluginsToLoad?: Array<String> ): undefined => {
         if ( typeof pluginsToLoad !== 'undefined' ) {
-            
+
         }
         console.log( 'init' );
     };

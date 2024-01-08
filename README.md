@@ -18,48 +18,63 @@
     <img alt="Latest release" src="https://img.shields.io/github/release/impress/impress.js.svg">
 </div>
 
-impress.js is a presentation framework written in JavaScript that uses the power
-of CSS3 transistions and transforms. It is inspired by the idea behind prezi.com
+impress.js is a presentation framework written in JavaScript that uses the power of CSS3 transitions and transforms. It is inspired by the idea behind prezi.com
 
 **WARNING**
 
 impress.js may not help you if you have nothing interesting to say ;)
 
 
-***THIS VERSION IS UNSTABLE AND INCOMPLETE. Please use the [upstream version](https://github.com/impress/impress.js) (V2.1.0)!***
+***THIS VERSION IS UNSTABLE AND INCOMPLETE. Please use the [upstream version](https://github.com/impress/impress.js) (V2.0.0)!***
 
 A rewrite of this README file is also ongoing, therefore it also contains comments and some unfinished sections, as well as the fact that it looks kinda awful with the partial changes that I have made so far.
 
-# HOW TO USE IT
-### Getting Started Guide
-Check out our new [Getting Started](GettingStarted.md) guide if you want a quick introduction to the project!
+We are also switching to TS as the main impress development language, but you can still develop plugins in JS, if you wish!
 
-## Direct download link to only impress.js
-You can include this link directly inside of your HTML file in its header. If you want to learn how to do this, you can find a how-to in the [Getting Started](GettingStarted.md) guide.
-- V2.0.0: https://cdn.jsdelivr.net/gh/impress/impress.js@2.0.0/js/impress.js
-- V1.1.0: https://cdn.jsdelivr.net/gh/impress/impress.js@1.1.0/js/impress.js
-- Source: https://cdn.jsdelivr.net/gh/impress/impress.js/js/impress.js
-  
+# Getting Started with impress.js
+Welcome to impress.js, the impressive JavaScript framework, that allows you to build presentations for web browsers. 
 
-## Checking out and initializing the git repository
+## Browser support
+Since impress.js is designed to show of the power of modern CSS, we cannot guarantee that it will run in older browser. Whilst we try not to intentionally not support browsers, some features might not work well on all browsers, especially with V3.x. For example, Internet Explorer is known to not work with V3.x, so if you really NEED to use that browser, please use V2.x. impress.js works best with the latest versions of Chrome, Firefox and most likely also with the latest versions of Safari.
 
-    git clone --recursive https://github.com/impress/impress.js.git
-    cd impress.js
-
-Note: For a minimal checkout, omit the `--recursive` option. This will leave out extra plugins.
-
-**Stable releases**
-
-New features and fixes are continuously merged into the master branch, which is what the above command will check out. For the latest stable release, see the [Github Releases page](https://github.com/impress/impress.js/releases).
+## Quick Start
+You can visit our website at [https://impress.js.org](https://impress.js.org) to learn more about the project, where you can also find helpful resources for getting started, like the [Getting Started Guide](/docs/GettingStarted.md) and [Documentation](/docs/DOCUMENTATION.md), but rendered as HTML instead of MarkDown, as it is here on GitHub.
 
 
-## Documentation
+## A very quick quick start
+Copy one of the code snippets below to the header of your impress.js presentation's HTML file.
+- V3.0.0:
+```
+<script src="https://cdn.jsdelivr.net/gh/impress/impress.js@3.0.0/dist/impress.min.js"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/impress/impress.js@3.0.0/dist/impress.min.css"
+```
+- V2.0.0: 
+```
+<script src="https://cdn.jsdelivr.net/gh/impress/impress.js@2.0.0/js/impress.js"/>
+```
+- V1.1.0:
+```
+<script src="https://cdn.jsdelivr.net/gh/impress/impress.js@1.1.0/js/impress.js"/>
+```
+- Upstream:
+```
+<script src="https://cdn.jsdelivr.net/gh/impress/impress.js/dist/impress.min.js"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/impress/impress.js/dist/impress.min.css"
+```
 
-Reference documentation of core impress.js features and API you can find it in [DOCUMENTATION.md](DOCUMENTATION.md).
+We do not recommend using the Upstream version, as there might be breaking changes coming or features might be temporarily broken due to only partially finished feature updates. Whilst this shouldn't happen normally, please be aware of that risk when using Upstream.
+
+### Using a self-hosted version of impress.js
+You can download impress.js from the releases tab. Some older versions might not have the `impress.js` file in the releases, you will be required to extract it from the source code archive. You can find the file in the `js` folder. New versions include the `impress.js`, `impress.min.js`, `impress.css` and `impress.min.css` files in the assets.
+
+
+# Documentation
+
+You can find the entire documentation of impress.js on our [website](https://impress.js.org/docs) or in the [DOCUMENTATION.md](/docs/DOCUMENTATION.md) file
 
 The [HTML source code](index.html) of the official [impress.js demo](http://impress.js.org/) serves as a good example usage and contains comments explaining various features of impress.js. For more information about styling you can look into [CSS code](css/impress-demo.css) which shows how classes provided by impress.js can be used. Last but not least [JavaScript code of impress.js](js/impress.js) has some useful comments if you are interested in how everything works. Feel free to explore!
 
-## Official demo
+# Official demo
 
 [impress.js demo](http://impress.js.org/) by [@bartaz](http://twitter.com/bartaz)
 
@@ -86,6 +101,28 @@ You're welcome to ask impress.js related questions on the [impressionist-present
 
 TODO: We should migrate to a different kind of mailing list
 
+# Contributing
+## Cloning impress.js locally
+
+    git clone --recursive https://github.com/impress/impress.js.git
+    cd impress.js
+
+Note: For a minimal checkout, omit the `--recursive` option. This will leave out extra plugins.
+
+## Details
+For developers, once you've made changes to the code, you should run these commands for testing:
+
+    npm install
+    npm run all
+
+Note that running `firefox qunit_test_runner.html` is usually more informative than running `karma` with `npm run test`. They both run the same tests.
+
+More info about the [src/](src/) directory can be found in [src/plugins/README.md](src/plugins/README.md).
+
+## Requirements
+TODO: Check that these requirements are still ok
+* &gt;= node 7.6
+* npm
 
 # REPOSITORY STRUCTURE
 
@@ -102,53 +139,28 @@ TODO: We should migrate to a different kind of mailing list
 * [build.js](build.js): Simple build file that creates `js/impress.js`. It also creates a minified version `impress.min.js`, but that one is not included in the github repository.
 * [package.json](build.js): An NPM package specification. This was mainly added so you can easily install [buildify](https://www.npmjs.com/package/buildify) and run `node build.js`. Other than the build process, which is really just doing roughly `cat src/impress.js src/plugins/*/*.js > js/impress.js`, and testing, `impress.js` itself doesn't depend on Node or any NPM modules.
 
-WANT TO CONTRIBUTE?
----------------------
-
-For developers, once you've made changes to the code, you should run these commands for testing:
-
-    npm install
-    npm run all
-
-Note that running `firefox qunit_test_runner.html` is usually more informative than running `karma` with `npm run test`. They both run the same tests.
-
-More info about the [src/](src/) directory can be found in [src/plugins/README.md](src/plugins/README.md).
-
-### Requirements
-
-* &gt;= node 7.6
-* npm
-
-
-ABOUT THE NAME
-----------------
+# About impress.js
+## ABOUT THE NAME
 
 impress.js name is [courtesy of @skuzniak](http://twitter.com/skuzniak/status/143627215165333504).
 
-It's an (un)fortunate coincidence that a Open/LibreOffice presentation tool is called Impress ;)
+It's an (un)fortunate coincidence that an Open/LibreOffice presentation tool is called Impress ;)
 
-Reference API
---------------
+## Reference API
 
 See the [Reference API](DOCUMENTATION.md)
 
-BROWSER SUPPORT
------------------
+## Browser support (again, but for devs)
 
-The design goal for impress.js has been to showcase awesome CSS3 features as found in modern browser versions. We also use some new DOM functionality, and specifically do not use jQuery or any other JavaScript libraries, nor our own functions, to support older browsers. In general, recent versions of Firefox and Chrome are known to work well. Reportedly IE now works too.
-
-The typical use case for impress.js is to create presentations that you present from your own laptop, with a browser version you know works well. Some people also use impress.js successfully to embed animations or presentations in a web page, however, be aware that in this some of your visitors may not see the presentation correctly, or at all.
-
-In particular, impress.js makes use of the following JS and CSS features:
+impress.js uses the following CSS and JavaScript features
 
 * [DataSet API](http://caniuse.com/#search=dataset)
 * [ClassList API](http://caniuse.com/#search=classlist)
 * [CSS 3D Transforms](http://caniuse.com/#search=css%203d)
 * [CSS Transitions](http://caniuse.com/#search=css%20transition)
 
-COPYRIGHT AND LICENSE
----------------------
+# Copyright and License
 
-Copyright 2011-2012 Bartek Szopka (@bartaz), 2016-2023 Henrik Ingo (@henrikingo) and [70+ other contributors](https://github.com/impress/impress.js/graphs/contributors)
+Copyright 2011-2012 Bartek Szopka (@bartaz), 2016-2023 Henrik Ingo (@henrikingo) and [85+ other contributors](https://github.com/impress/impress.js/graphs/contributors)
 
 Released under the MIT [License](LICENSE)

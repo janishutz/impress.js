@@ -3,7 +3,7 @@
 /node_modules
 /npm-debug.log
 /*.tgz
-/dist
+/built
 
 # Files for editors and other tools
 /.brackets.json
