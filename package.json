@@ -24,8 +24,7 @@
   "scripts": {
     "all": "npm run build && npm run test && npm run lint",
     "build": "node build.js",
-    "lint": "npm exec -- jshint src test/*.js && npm exec -- jscs src test/*.js",
-    "new-lint": "npm exec -- eslint src test",
+    "lint": "npm exec -- eslint src test",
     "test": "npm exec -- karma start --log-level debug --single-run=true"
   },
   "devDependencies": {
