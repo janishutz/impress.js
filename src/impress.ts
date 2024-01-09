@@ -18,12 +18,13 @@
  *  source:  http://github.com/impress/impress.js/
  */
 
-// Welcome to the impress.js source code
+// Welcome to the impress.js source code!
 // You are one of those who would like to know how impress.js works?
 // Let us show you!
-// NOTE that compared to previous versions of impress, this code is documented in a more technical fashion.
+// Please note that compared to previous versions of impress, this code is documented in a more technical fashion.
 
-// Important note on the file structure of impress.js, as it has changed with V3
+// Important note on the file structure of impress.js, as it has changed with V3:
+// -------------------------------------------------------------------------------
 // This file contains all the interface definitions and uses various components from the ./lib directory,
 // as well as loading impress plugins from the ./plugins directory. A fully built impress.js version
 // has all of these files combined into a single file, as to enable a simple include.
