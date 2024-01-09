@@ -30,20 +30,23 @@
 // has all of these files combined into a single file, as to enable a simple include.
 
 interface Window {
-    impress: Function;
+    impress;
 }
 
 window.impress = () => {
+
     /**
      * This function is used to initialize impress. It calls some prep functions and then loads
      * all plugins that are registered. By default, these are the built-in plugins. You can define
      * which plugins are loaded by passing in an array of plugin-functions into the init function
-     * @param {Array<String>}  [pluginsToLoad]
+     * @param {Array<String>|undefined}  [pluginsToLoad] An array of plugins to load when initializing impress.
+     * Defaults to the built-in plugins.
      * @returns {undefined}
      */
-    var init: Function = ( pluginsToLoad?: Array<String> ): undefined => {
+    var init = ( pluginsToLoad?: Array<string> ): undefined => {
+        let toBeLoadedPlugins: Array<string> = [''];
         if ( typeof pluginsToLoad !== 'undefined' ) {
-
+            toBeLoadedPlugins = pluginsToLoad;
         }
         console.log( 'init' );
     };
@@ -55,30 +58,29 @@ window.impress = () => {
      * generated element. This allows for example the Overview plugin to work as it does.
      *
      * Returns true if successful at positioning this element, false, if failed
-     * @param {string} DOMElementID
-     * @param {object} coordinates
+     * @param {string} DOMElementID The DOM ID of the element to add to impress
+     * @param {object} coordinates An object representing the position in the 3D canvas
      * @param {number} coordinates.x The translation in direction of x-axis
      * @param {number} coordinates.y The translation in direction of y-axis
      * @param {number} coordinates.z The translation in direction of z-axis
-     * @param {object} rotation
+     * @param {object} rotation An object representing the rotation around the x, y and z-axis
      * @param {number} rotation.x The rotation in degrees around the x-axis
      * @param {number} rotation.y The rotation in degrees around the y-axis
      * @param {number} rotation.z The rotation in degrees around the z-axis
-     * @returns {boolean}
+     * @returns {undefined}
      */
-    var addElement: Function = ( DOMElementID: string, coordinates: { x: number; y: number; z: number; }, rotation: { x: number; y: number; z: number; } ): boolean => {
+    var addElement: Function = ( DOMElementID: string, coordinates: { x: number; y: number; z: number; }, rotation: { x: number; y: number; z: number; } ): undefined => {
         console.log( 'element added' );
-        return true;
     };
 
     /**
      * This function allows you to remove an element from the virtual canvas. Essentially,
      * impress.js just hides this element and ignores it in translations & rotations
      * @param {string} DOMElementID The element that is removed. Has to be the element ID of a DOM element
-     * @returns {boolean}
+     * @returns {undefined}
      */
-    var removeElement = ( DOMElementID: string ): boolean => {
-        return true;
+    var removeElement = ( DOMElementID: string ): undefined => {
+        console.log( 'hello' );
     };
 
     /**
@@ -87,11 +89,9 @@ window.impress = () => {
      * @param {object} rotation
      * @returns {promise}
      */
-    var moveTo = ( coordinates: object, rotation: object ): Promise<any> => {
-        return new Promise( ( resolve, reject ) => {
-            
-        } );
-    }
+    var moveTo = ( coordinates: object, rotation: object ): Promise<boolean> => new Promise( ( resolve, reject ) => {
+        resolve( true );
+    } );
 
     return {
         init
