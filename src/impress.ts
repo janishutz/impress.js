@@ -57,7 +57,6 @@ window.impress = () => {
      * and initializes impress itself. You can also use this function to edit a previously
      * generated element. This allows for example the Overview plugin to work as it does.
      *
-     * Returns true if successful at positioning this element, false, if failed
      * @param {string} DOMElementID The DOM ID of the element to add to impress
      * @param {object} coordinates An object representing the position in the 3D canvas
      * @param {number} coordinates.x The translation in direction of x-axis
@@ -67,27 +66,35 @@ window.impress = () => {
      * @param {number} rotation.x The rotation in degrees around the x-axis
      * @param {number} rotation.y The rotation in degrees around the y-axis
      * @param {number} rotation.z The rotation in degrees around the z-axis
-     * @returns {undefined}
+     * @returns {boolean} Returns true if successful at positioning this element, false, if failed
      */
-    var addElement: Function = ( DOMElementID: string, coordinates: { x: number; y: number; z: number; }, rotation: { x: number; y: number; z: number; } ): undefined => {
+    var addElement: Function = ( DOMElementID: string, coordinates: { x: number; y: number; z: number; }, rotation: { x: number; y: number; z: number; } ): boolean => {
         console.log( 'element added' );
+        return true;
     };
 
     /**
      * This function allows you to remove an element from the virtual canvas. Essentially,
      * impress.js just hides this element and ignores it in translations & rotations
      * @param {string} DOMElementID The element that is removed. Has to be the element ID of a DOM element
-     * @returns {undefined}
+     * @returns {boolean} Returns true if successful, false if failed.
      */
-    var removeElement = ( DOMElementID: string ): undefined => {
-        console.log( 'hello' );
+    var removeElement = ( DOMElementID: string ): boolean => {
+        console.log( 'Element with ID ' + DOMElementID + ' removed.' );
+        return true;
     };
 
     /**
-     * Description
-     * @param {object} coordinates
-     * @param {object} rotation
-     * @returns {promise}
+     * You can use this function to specify a movement or turn of the virtual canvas.
+     * @param {object} coordinates An object of the coordinatest to move to
+     * @param {number} coordinates.x The translation in direction of x-axis
+     * @param {number} coordinates.y The translation in direction of y-axis
+     * @param {number} coordinates.z The translation in direction of z-axis
+     * @param {object} rotation An object of the rotation around the axis to get to
+     * @param {number} rotation.x The rotation in degrees around the x-axis
+     * @param {number} rotation.y The rotation in degrees around the y-axis
+     * @param {number} rotation.z The rotation in degrees around the z-axis
+     * @returns {promise<boolean>} This promise resolves as a boolean, indicating success or failure
      */
     var moveTo = ( coordinates: object, rotation: object ): Promise<boolean> => new Promise( ( resolve, reject ) => {
         resolve( true );
