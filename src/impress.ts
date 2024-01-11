@@ -1,4 +1,4 @@
-/* ! Licensed under MIT License - http://github.com/impress/impress.js */
+/* ! Licensed under MIT License - https://github.com/impress/impress.js/blob/master/LICENSE */
 /**
  * impress.js
  *
@@ -29,11 +29,7 @@
 // as well as loading impress plugins from the ./plugins directory. A fully built impress.js version
 // has all of these files combined into a single file, as to enable a simple include.
 
-interface Window {
-    impress;
-}
-
-window.impress = () => {
+( window as any ).impress = () => {
 
     /**
      * This function is used to initialize impress. It calls some prep functions and then loads
@@ -52,7 +48,7 @@ window.impress = () => {
     };
 
     /**
-     * Use this function to create a new element on the virtual canvas of impress.js
+     * Use this function to create a new element on the canvas of impress.js
      * It is used for example by the "presentation" plugin, which parses the presentation
      * and initializes impress itself. You can also use this function to edit a previously
      * generated element. This allows for example the Overview plugin to work as it does.
@@ -68,13 +64,13 @@ window.impress = () => {
      * @param {number} rotation.z The rotation in degrees around the z-axis
      * @returns {boolean} Returns true if successful at positioning this element, false, if failed
      */
-    var addElement: Function = ( DOMElementID: string, coordinates: { x: number; y: number; z: number; }, rotation: { x: number; y: number; z: number; } ): boolean => {
+    var addElement = ( DOMElementID: string, coordinates: { x: number; y: number; z: number; }, rotation: { x: number; y: number; z: number; } ): boolean => {
         console.log( 'element added' );
         return true;
     };
 
     /**
-     * This function allows you to remove an element from the virtual canvas. Essentially,
+     * This function allows you to remove an element from the canvas. Essentially,
      * impress.js just hides this element and ignores it in translations & rotations
      * @param {string} DOMElementID The element that is removed. Has to be the element ID of a DOM element
      * @returns {boolean} Returns true if successful, false if failed.
@@ -85,7 +81,7 @@ window.impress = () => {
     };
 
     /**
-     * You can use this function to specify a movement or turn of the virtual canvas.
+     * You can use this function to specify a movement and/or rotation of the canvas.
      * @param {object} coordinates An object of the coordinatest to move to
      * @param {number} coordinates.x The translation in direction of x-axis
      * @param {number} coordinates.y The translation in direction of y-axis
