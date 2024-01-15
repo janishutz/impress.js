@@ -92,9 +92,19 @@
      * @param {number} rotation.z The rotation in degrees around the z-axis
      * @returns {promise<boolean>} This promise resolves as a boolean, indicating success or failure
      */
-    var moveTo = ( coordinates: object, rotation: object ): Promise<boolean> => new Promise( ( resolve, reject ) => {
-        resolve( true );
-    } );
+    var moveTo = ( coordinates: object, rotation: object ): Promise<boolean> => {
+        return new Promise( ( resolve, reject ) => {
+            
+        } );
+    }
+
+    /**
+     * You can use this function to get all registered impress steps.
+     * @returns {Array<Object>}
+     */
+    const getSteps = ():Array<Object> => {
+        return [];
+    }
 
     return {
         init
