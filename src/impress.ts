@@ -29,9 +29,11 @@
 // as well as loading impress plugins from the ./plugins directory. A fully built impress.js version
 // has all of these files combined into a single file, as to enable a simple include.
 
+// All internal functions are (to be) prefixed with an underscore
+
 ( window as any ).impress = () => {
     let initializedElements = {};
-
+    
     /**
      * This function is used to initialize impress. It calls some prep functions and then loads
      * all plugins that are registered. By default, these are the built-in plugins. You can define
@@ -39,13 +41,26 @@
      * @param {Array<String>|undefined}  [pluginsToLoad] An array of plugins to load when initializing impress.
      * Defaults to the built-in plugins.
      * @returns {undefined}
-     */
-    const init = ( pluginsToLoad?: Array<string> ): undefined => {
-        let toBeLoadedPlugins: Array<string> = [ '' ];
+    */
+    const init = ( pluginsToLoad?: Array<Function> ): undefined => {
+        let toBeLoadedPlugins: Array<Function> = [];
         if ( typeof pluginsToLoad !== 'undefined' ) {
-            toBeLoadedPlugins = pluginsToLoad;
+           toBeLoadedPlugins = pluginsToLoad;
         }
-        // TODO: Load plugins
+
+        for ( let plugin in toBeLoadedPlugins ) {
+            try {
+                toBeLoadedPlugins[ plugin ]();
+            } catch ( _e ) {
+                // Maybe somebody thinks they are funny to pass in an array of something but functions...
+                console.warn( 'impress().init() only accepts an array of functions! What you passed in was an array of ' + typeof( toBeLoadedPlugins[ plugin ] ) );
+                return;
+            }
+        }
+        // TODO: Load plugins, check if impress is supported
+
+        // Finally, with init done, send out the 'impress:init' event
+        document.dispatchEvent( new Event( 'impress:init' ) );
     };
 
     /**
@@ -81,6 +96,10 @@
             id: DOMElementID,
         }
         _positionElements();
+
+        // Dispatch event that an element was added
+        document.dispatchEvent( new Event( 'impress:addedElement' ) );
+
         return true;
     };
 
@@ -97,6 +116,10 @@
             return false;
         }
         _positionElements();
+        
+        // Dispatch event that an element was removed
+        document.dispatchEvent( new Event( 'impress:removedElement' ) );
+
         return true;
     };
 
@@ -105,7 +128,8 @@
      * @returns {undefined}
      */
     const _positionElements = (): undefined => {
-
+        // Gets current position and calls moveTo function
+        moveTo( getCurrentPos().coordinates, getCurrentPos().rotation );
     }
 
     /**
@@ -122,7 +146,8 @@
      */
     const moveTo = ( coordinates: object, rotation: object ): Promise<boolean> => {
         return new Promise( ( resolve, reject ) => {
-            
+            // Dispatch event telling all plugins that we're moving
+            document.dispatchEvent( new Event( 'impress:moving' ) );
         } );
     }
 
@@ -146,10 +171,12 @@
      * Returns the current position as an object of form { coordinates: Object, rotation: Object }
      * @returns {Object}
      */
-    const getCurrentPos = (): Object => {
-        return {};
+    const getCurrentPos = (): { coordinates: { x: number; y: number; z: number; }, rotation: { x: number; y: number; z: number; } } => {
+        return { coordinates: { x: 0, y: 0, z: 0, }, rotation: { x: 0, y: 0, z: 0, } };
     }
 
+
+    // Return all functions that are exposed by impress
     return {
         init,
         getElements,
