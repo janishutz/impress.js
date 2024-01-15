@@ -2,7 +2,8 @@
     "compilerOptions": {
       "outDir": "./built",
       "allowJs": true,
-      "target": "ES6"
+      "target": "ES6",
+      "skipLibCheck": true
     },
-    "include": [ "./src/**/*" ]
+    "include": [ "./src/**/*" ],
 }

@@ -30,6 +30,7 @@
 // has all of these files combined into a single file, as to enable a simple include.
 
 ( window as any ).impress = () => {
+    let initializedElements = {};
 
     /**
      * This function is used to initialize impress. It calls some prep functions and then loads
@@ -39,12 +40,12 @@
      * Defaults to the built-in plugins.
      * @returns {undefined}
      */
-    var init = ( pluginsToLoad?: Array<string> ): undefined => {
-        let toBeLoadedPlugins: Array<string> = [''];
+    const init = ( pluginsToLoad?: Array<string> ): undefined => {
+        let toBeLoadedPlugins: Array<string> = [ '' ];
         if ( typeof pluginsToLoad !== 'undefined' ) {
             toBeLoadedPlugins = pluginsToLoad;
         }
-        console.log( 'init' );
+        // TODO: Load plugins
     };
 
     /**
@@ -64,8 +65,22 @@
      * @param {number} rotation.z The rotation in degrees around the z-axis
      * @returns {boolean} Returns true if successful at positioning this element, false, if failed
      */
-    var addElement = ( DOMElementID: string, coordinates: { x: number; y: number; z: number; }, rotation: { x: number; y: number; z: number; } ): boolean => {
-        console.log( 'element added' );
+    const addElement = ( DOMElementID: string, coordinates: { x: number; y: number; z: number; }, rotation: { x: number; y: number; z: number; } ): boolean => {
+        if ( DOMElementID === '' || !DOMElementID ) {
+            return false;
+        }
+        coordinates.x = coordinates.x ?? 0;
+        coordinates.y = coordinates.y ?? 0;
+        coordinates.z = coordinates.z ?? 0;
+        rotation.x = rotation.x ?? 0;
+        rotation.y = rotation.y ?? 0;
+        rotation.z = rotation.z ?? 0;
+        initializedElements[ DOMElementID ] = {
+            coordinates: coordinates,
+            rotation: rotation,
+            id: DOMElementID,
+        }
+        _positionElements();
         return true;
     };
 
@@ -75,10 +90,23 @@
      * @param {string} DOMElementID The element that is removed. Has to be the element ID of a DOM element
      * @returns {boolean} Returns true if successful, false if failed.
      */
-    var removeElement = ( DOMElementID: string ): boolean => {
-        console.log( 'Element with ID ' + DOMElementID + ' removed.' );
+    const removeElement = ( DOMElementID: string ): boolean => {
+        try {
+            delete initializedElements[ DOMElementID ];
+        } catch ( err ) {
+            return false;
+        }
+        _positionElements();
         return true;
     };
+
+    /**
+     * Internal function that positions elements on the canvas. Called every time a element is added / removed
+     * @returns {undefined}
+     */
+    const _positionElements = (): undefined => {
+
+    }
 
     /**
      * You can use this function to specify a movement and/or rotation of the canvas.
@@ -92,21 +120,43 @@
      * @param {number} rotation.z The rotation in degrees around the z-axis
      * @returns {promise<boolean>} This promise resolves as a boolean, indicating success or failure
      */
-    var moveTo = ( coordinates: object, rotation: object ): Promise<boolean> => {
+    const moveTo = ( coordinates: object, rotation: object ): Promise<boolean> => {
         return new Promise( ( resolve, reject ) => {
             
         } );
     }
 
     /**
-     * You can use this function to get all registered impress steps.
+     * You can use this function to get all registered impress elements.
      * @returns {Array<Object>}
      */
-    const getSteps = ():Array<Object> => {
+    const getElements = ():Array<Object> => {
         return [];
     }
 
+    /**
+     * This function returns the active element
+     * @returns {Object}
+     */
+    const getCurrentElement = ():Object => {
+        return {};
+    }
+
+    /**
+     * Returns the current position as an object of form { coordinates: Object, rotation: Object }
+     * @returns {Object}
+     */
+    const getCurrentPos = (): Object => {
+        return {};
+    }
+
     return {
-        init
+        init,
+        getElements,
+        getCurrentElement,
+        moveTo,
+        removeElement,
+        addElement,
+        getCurrentPos
     };
 };
