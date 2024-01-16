@@ -38,8 +38,7 @@
      * This function is used to initialize impress. It calls some prep functions and then loads
      * all plugins that are registered. By default, these are the built-in plugins. You can define
      * which plugins are loaded by passing in an array of plugin-functions into the init function
-     * @param {Array<String>|undefined}  [pluginsToLoad] An array of plugins to load when initializing impress.
-     * Defaults to the built-in plugins.
+     * @param {Array<String>|undefined}  [pluginsToLoad] An array of plugins to load when initializing impress. Defaults to the built-in plugins that require explicit initialization.
      * @returns {undefined}
     */
     const init = ( pluginsToLoad?: Array<Function> ): undefined => {
@@ -48,6 +47,7 @@
            toBeLoadedPlugins = pluginsToLoad;
         }
 
+        // Let's initialize all plugins that have to be initialized
         for ( let plugin in toBeLoadedPlugins ) {
             try {
                 toBeLoadedPlugins[ plugin ]();
@@ -57,9 +57,11 @@
                 return;
             }
         }
+
         // TODO: Load plugins, check if impress is supported
 
-        // Finally, with init done, send out the 'impress:init' event
+        // Finally, with init done, send out the 'impress:init' event. 
+        // All plugins which use this event to initialize will now be initialized
         document.dispatchEvent( new Event( 'impress:init' ) );
     };
 
