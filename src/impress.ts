@@ -162,14 +162,6 @@
     }
 
     /**
-     * This function returns the active element
-     * @returns {Object}
-     */
-    const getCurrentElement = ():Object => {
-        return {};
-    }
-
-    /**
      * Returns the current position as an object of form { coordinates: Object, rotation: Object }
      * @returns {Object}
      */
@@ -182,7 +174,6 @@
     return {
         init,
         getElements,
-        getCurrentElement,
         moveTo,
         removeElement,
         addElement,
