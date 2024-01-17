@@ -31,9 +31,30 @@
 
 // All internal functions are (to be) prefixed with an underscore
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 ( window as any ).impress = () => {
+    // Somehow eslint didn't like the variable being reassigned inside of a function...
+    // So I had it shut up
+    // eslint-disable-next-line prefer-const
     let initializedElements = {};
-    
+
+    // Check if impress is supported. We use the CSS.supports API which is supported in all
+    // browsers except IE, for which we dropped support with V3 to move forward with state-of-the-art
+    // CSS & JS features.
+    // eslint-disable-next-line no-warning-comments
+    // TODO: Add additional required elements to checks as well
+
+    const isImpressSupported = ( CSS !== undefined ) && CSS.supports( 'perspective', '100px' ) && ( document.body.classList ) && document.body.dataset;
+    if ( !isImpressSupported ) {
+        // We can't be sure that classList exists, so let's better not use it
+        document.body.className += ' impress-not-supported';
+    } else {
+        document.body.classList.remove( 'impress-not-supported' );
+        document.body.classList.add( 'impress-supported' );
+    }
+
+    type PluginInitFunction = () => undefined;
+
     /**
      * This function is used to initialize impress. It calls some prep functions and then loads
      * all plugins that are registered. By default, these are the built-in plugins. You can define
@@ -41,26 +62,28 @@
      * @param {Array<String>|undefined}  [pluginsToLoad] An array of plugins to load when initializing impress. Defaults to the built-in plugins that require explicit initialization.
      * @returns {undefined}
     */
-    const init = ( pluginsToLoad?: Array<Function> ): undefined => {
-        let toBeLoadedPlugins: Array<Function> = [];
+    const init = ( pluginsToLoad?: Array<PluginInitFunction> ): undefined => {
+        // Check if impress is supported and refuse to init, if not supported.
+        if ( !isImpressSupported ) {
+            return;
+        }
+        let toBeLoadedPlugins: Array<PluginInitFunction> = [];
         if ( typeof pluginsToLoad !== 'undefined' ) {
-           toBeLoadedPlugins = pluginsToLoad;
+            toBeLoadedPlugins = pluginsToLoad;
         }
 
         // Let's initialize all plugins that have to be initialized
-        for ( let plugin in toBeLoadedPlugins ) {
-            try {
+        for ( const plugin in toBeLoadedPlugins ) {
+            if ( typeof ( toBeLoadedPlugins[ plugin ] ) === 'function' ) {
                 toBeLoadedPlugins[ plugin ]();
-            } catch ( _e ) {
+            } else {
                 // Maybe somebody thinks they are funny to pass in an array of something but functions...
-                console.warn( 'impress().init() only accepts an array of functions! What you passed in was an array of ' + typeof( toBeLoadedPlugins[ plugin ] ) );
+                console.warn( 'impress().init() only accepts an array of functions! What you passed in was an array of ' + typeof ( toBeLoadedPlugins[ plugin ] ) );
                 return;
             }
         }
 
-        // TODO: Load plugins, check if impress is supported
-
-        // Finally, with init done, send out the 'impress:init' event. 
+        // Finally, with init done, send out the 'impress:init' event.
         // All plugins which use this event to initialize will now be initialized
         document.dispatchEvent( new Event( 'impress:init' ) );
     };
@@ -95,9 +118,9 @@
         initializedElements[ DOMElementID ] = {
             coordinates: coordinates,
             rotation: rotation,
-            id: DOMElementID,
-        }
-        _positionElements();
+            id: DOMElementID
+        };
+        positionElements();
 
         // Dispatch event that an element was added
         document.dispatchEvent( new Event( 'impress:addedElement' ) );
@@ -117,8 +140,7 @@
         } catch ( err ) {
             return false;
         }
-        _positionElements();
-        
+        positionElements();
         // Dispatch event that an element was removed
         document.dispatchEvent( new Event( 'impress:removedElement' ) );
 
@@ -129,10 +151,10 @@
      * Internal function that positions elements on the canvas. Called every time a element is added / removed
      * @returns {undefined}
      */
-    const _positionElements = (): undefined => {
+    const positionElements = (): undefined => {
         // Gets current position and calls moveTo function
         moveTo( getCurrentPos().coordinates, getCurrentPos().rotation );
-    }
+    };
 
     /**
      * You can use this function to specify a movement and/or rotation of the canvas.
@@ -146,28 +168,29 @@
      * @param {number} rotation.z The rotation in degrees around the z-axis
      * @returns {promise<boolean>} This promise resolves as a boolean, indicating success or failure
      */
-    const moveTo = ( coordinates: object, rotation: object ): Promise<boolean> => {
-        return new Promise( ( resolve, reject ) => {
-            // Dispatch event telling all plugins that we're moving
-            document.dispatchEvent( new Event( 'impress:moving' ) );
-        } );
-    }
+    const moveTo = ( coordinates: object, rotation: object ): Promise<boolean> => new Promise( ( resolve, reject ) => {
+        // Dispatch event telling all plugins that we're moving
+        document.dispatchEvent( new Event( 'impress:moving' ) );
+        console.log( coordinates, rotation );
+        if ( typeof ( coordinates ) === 'object' ) {
+            resolve( true );
+        } else {
+            reject( new Error( 'moveTo takes a coordinate and rotation object as arguments' ) );
+        }
+    } );
 
     /**
      * You can use this function to get all registered impress elements.
-     * @returns {Array<Object>}
+     * @returns {object} Returns an object containing all initialized elements
      */
-    const getElements = ():Array<Object> => {
-        return [];
-    }
+    const getElements = ():object => initializedElements;
 
     /**
      * Returns the current position as an object of form { coordinates: Object, rotation: Object }
-     * @returns {Object}
+     * @returns {object} Returns an object that contains an object of the coordinates and rotation:
+     * { coordinates: { x: number, y: number, z: number }, rotation: { x: number, y: number, z: number }
      */
-    const getCurrentPos = (): { coordinates: { x: number; y: number; z: number; }, rotation: { x: number; y: number; z: number; } } => {
-        return { coordinates: { x: 0, y: 0, z: 0, }, rotation: { x: 0, y: 0, z: 0, } };
-    }
+    const getCurrentPos = ():{ coordinates: { x: number, y: number, z: number }, rotation: { x: number, y: number, z: number } } => ( { coordinates: { x: 0, y: 0, z: 0 }, rotation: { x: 0, y: 0, z: 0 } } );
 
 
     // Return all functions that are exposed by impress
