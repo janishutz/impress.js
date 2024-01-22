@@ -31,6 +31,15 @@
 
 // All internal functions are (to be) prefixed with an underscore
 
+class ImpressNotSupportedError extends Error {}
+class ImpressInitError extends Error {}
+
+class ImpressConfig {
+    constructor(  ) {
+        
+    }
+}
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 ( window as any ).impress = () => {
     // Somehow eslint didn't like the variable being reassigned inside of a function...
@@ -53,7 +62,7 @@
         document.body.classList.add( 'impress-supported' );
     }
 
-    type PluginInitFunction = () => undefined;
+    type PluginInitFunction = () => void;
 
     /**
      * This function is used to initialize impress. It calls some prep functions and then loads
@@ -62,11 +71,14 @@
      * @param {Array<String>|undefined}  [pluginsToLoad] An array of plugins to load when initializing impress. Defaults to the built-in plugins that require explicit initialization.
      * @returns {undefined}
     */
-    const init = ( pluginsToLoad?: Array<PluginInitFunction> ): undefined => {
+    const init = ( pluginsToLoad?: Array<PluginInitFunction> ): void => {
         // Check if impress is supported and refuse to init, if not supported.
         if ( !isImpressSupported ) {
-            return;
+            throw new ImpressNotSupportedError( 'Your browser does not support all required CSS attributes. Impress.js can therefore not be started. You will see a simplified version of the presentation.' );
         }
+
+        // Set default set of plugins to initialize on init or, if pluginsToLoad is defined,
+        // use the plugins array to load
         let toBeLoadedPlugins: Array<PluginInitFunction> = [];
         if ( typeof pluginsToLoad !== 'undefined' ) {
             toBeLoadedPlugins = pluginsToLoad;
@@ -78,10 +90,18 @@
                 toBeLoadedPlugins[ plugin ]();
             } else {
                 // Maybe somebody thinks they are funny to pass in an array of something but functions...
-                console.warn( 'impress().init() only accepts an array of functions! What you passed in was an array of ' + typeof ( toBeLoadedPlugins[ plugin ] ) );
-                return;
+                console.warn( 'impress().init() only accepts an array of functions! What you passed in was an array of ' + typeof ( toBeLoadedPlugins[ plugin ] ) + '. Impress will load regardless, but the plugins you wanted to load will not be loaded!' );
             }
         }
+
+        // Get the main #impress element and raise ImpressInitError if no #impress element was found
+        var impressMain = document.getElementById( 'impress' );
+        if ( impressMain === null ) {
+            throw new ImpressInitError( 'Your presentation does not contain any element with id "impress"' );
+        }
+
+        console.log( impressMain.dataset );
+        // create config for impress
 
         // Finally, with init done, send out the 'impress:init' event.
         // All plugins which use this event to initialize will now be initialized
