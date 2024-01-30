@@ -27,9 +27,7 @@ impress.js may not help you if you have nothing interesting to say ;)
 
 ***THIS VERSION IS UNSTABLE AND INCOMPLETE. Please use the [upstream version](https://github.com/impress/impress.js) (V2.0.0)!***
 
-A rewrite of this README file is also ongoing, therefore it also contains comments and some unfinished sections, as well as the fact that it looks kinda awful with the partial changes that I have made so far.
-
-We are also switching to TS as the main impress development language, but you can still develop plugins in JS, if you wish!
+We are switching to TS as the main impress development language, but you can still develop plugins in JS, if you wish!
 
 # Getting Started with impress.js
 Welcome to impress.js, the impressive JavaScript framework, that allows you to build presentations for web browsers. 
