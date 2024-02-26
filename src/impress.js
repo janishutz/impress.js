@@ -37,8 +37,13 @@ class ImpressNotSupportedError extends Error {}
 class ImpressInitError extends Error {}
 
 class ImpressConfig {
-    constructor(  ) {
-        
+    constructor( width, height, perspective, transitionDuration, maxScale, minScale ) {
+        this.width = width;
+        this.height = height;
+        this.perspective = perspective;
+        this.transitionDuration = transitionDuration;
+        this.maxScale = maxScale;
+        this.minScale = minScale;
     }
 }
 
@@ -94,18 +99,22 @@ window.impress = ( impressConfig ) => {
                 toBeLoadedPlugins[ plugin ]();
             } else {
                 // Maybe somebody thinks they are funny to pass in an array of something but functions...
-                console.warn( 'impress().init() only accepts an array of functions! What you passed in was an array of ' + typeof ( toBeLoadedPlugins[ plugin ] ) + '. Impress will load regardless, but the plugins you wanted to load will not be loaded!' );
+                console.warn( 'impress().init() only accepts an array of functions! The array you passed also contained an element of type ' + typeof ( toBeLoadedPlugins[ plugin ] ) + '. Impress will load regardless, but this element will be ignored' );
             }
         }
 
-        // Get the main #impress element and raise ImpressInitError if no #impress element was found
+        // Get the main #impress element and create #impress div if none was found
         var impressMain = document.getElementById( 'impress' );
         if ( impressMain === null ) {
-            throw new ImpressInitError( 'Your presentation does not contain any element with id "impress"' );
+            impressMain = document.createElement( 'div' );
+            impressMain.id = 'impress';
         }
 
         console.log( impressMain.dataset );
-        // create config for impress
+        // If config is passed in via argument, don't use the dataset from the main div, otherwise, parse it
+        if ( !impressConfig ) {
+            impressConfig = new ImpressConfig();
+        }
 
         // Finally, with init done, send out the 'impress:init' event.
         // All plugins which use this event to initialize will now be initialized
