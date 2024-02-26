@@ -22,12 +22,14 @@
 // You are one of those who would like to know how impress.js works?
 // Let us show you!
 // Please note that compared to previous versions of impress, this code is documented in a more technical fashion.
+// A lot has changed compared to V2, so re-reading the code or documentation is highly recommended before you start
+// developing and updating plugins. There is a guide on how to migrate plugins from API V2 to API V3. 
 
 // Important note on the file structure of impress.js, as it has changed with V3:
 // -------------------------------------------------------------------------------
 // This file contains all the interface definitions and uses various components from the ./lib directory,
 // as well as loading impress plugins from the ./plugins directory. A fully built impress.js version
-// has all of these files combined into a single file, as to enable a simple include.
+// has all of these files combined into a single file, to allow for simple includes in simple webpages
 
 // All internal functions are (to be) prefixed with an underscore
 
@@ -40,8 +42,12 @@ class ImpressConfig {
     }
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-window.impress = () => {
+/**
+ * This is the main impress.js function and is used to prepare the DOM for the usage of impress.
+ * @param {ImpressConfig?} impressConfig Optional argument to specify config. Can be changed later on with the impress().updateConfig() function.
+ * @returns {object} Returns all public impress functions
+ */
+window.impress = ( impressConfig ) => {
     // Somehow eslint didn't like the variable being reassigned inside of a function...
     // So I had it shut up
     // eslint-disable-next-line prefer-const
@@ -121,7 +127,7 @@ window.impress = () => {
      * @param {number} rotation.x The rotation in degrees around the x-axis
      * @param {number} rotation.y The rotation in degrees around the y-axis
      * @param {number} rotation.z The rotation in degrees around the z-axis
-     * @returns {boolean} Returns true if successful at positioning this element, false, if failed
+     * @returns {boolean} Returns true if successful at positioning this element, false, if failed. Will also emit the "impress:addedElement" event to tell plugins that an element was added
      */
     const addElement = ( DOMElementID, coordinates, rotation ) => {
         if ( DOMElementID === '' || !DOMElementID ) {
@@ -138,7 +144,7 @@ window.impress = () => {
             rotation: rotation,
             id: DOMElementID
         };
-        positionElements();
+        _positionElements();
 
         // Dispatch event that an element was added
         document.dispatchEvent( new Event( 'impress:addedElement' ) );
@@ -158,7 +164,7 @@ window.impress = () => {
         } catch ( err ) {
             return false;
         }
-        positionElements();
+        _positionElements();
         // Dispatch event that an element was removed
         document.dispatchEvent( new Event( 'impress:removedElement' ) );
 
@@ -169,7 +175,7 @@ window.impress = () => {
      * Internal function that positions elements on the canvas. Called every time a element is added / removed
      * @returns {undefined}
      */
-    const positionElements = () => {
+    const _positionElements = () => {
         // Gets current position and calls moveTo function
         moveTo( getCurrentPos().coordinates, getCurrentPos().rotation );
     };
@@ -184,13 +190,15 @@ window.impress = () => {
      * @param {number} rotation.x The rotation in degrees around the x-axis
      * @param {number} rotation.y The rotation in degrees around the y-axis
      * @param {number} rotation.z The rotation in degrees around the z-axis
-     * @returns {promise<boolean>} This promise resolves as a boolean, indicating success or failure
+     * @returns {promise<boolean>} The returned promise resolves as a boolean, indicating success or failure
      */
     const moveTo = ( coordinates, rotation ) => new Promise( ( resolve, reject ) => {
         // Dispatch event telling all plugins that we're moving
         document.dispatchEvent( new Event( 'impress:moving' ) );
         console.log( coordinates, rotation );
         if ( typeof ( coordinates ) === 'object' ) {
+            // Dispatch event telling all plugins that we've stopped moving
+            document.dispatchEvent( new Event( 'impress:movingComplete' ) );
             resolve( true );
         } else {
             reject( new Error( 'moveTo takes a coordinate and rotation object as arguments' ) );
@@ -204,20 +212,39 @@ window.impress = () => {
     const getElements = () => initializedElements;
 
     /**
-     * Returns the current position as an object of form { coordinates: Object, rotation: Object }
+     * Get the current position of the camera
      * @returns {object} Returns an object that contains an object of the coordinates and rotation:
      * { coordinates: { x: number, y: number, z: number }, rotation: { x: number, y: number, z: number }
      */
     const getCurrentPos = () => ( { coordinates: { x: 0, y: 0, z: 0 }, rotation: { x: 0, y: 0, z: 0 } } );
 
 
-    // Return all functions that are exposed by impress
+    /**
+     * Use this function to get the current impress config
+     * @returns {ImpressConfig} Returns the current impress config
+     */
+    const getCurrentConfig = () => {
+        return impressConfig;
+    }
+
+    /**
+     * Update the impress config.
+     * @param {ImpressConfig} impressConfig The new impress config
+     * @returns {undefined} Returns nothing
+     */
+    const updateConfig = ( impressConfig ) => {
+        impressConfig = impressConfig;
+    }
+
+    // Return all functions that are exposed by impress. This is superior to using classes as we can control what functions we expose.
     return {
         init,
         getElements,
         moveTo,
         removeElement,
         addElement,
-        getCurrentPos
+        getCurrentPos,
+        getCurrentConfig,
+        updateConfig
     };
 };
