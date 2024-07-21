@@ -23,7 +23,7 @@
 // Let us show you!
 // Please note that compared to previous versions of impress, this code is documented in a more technical fashion.
 // A lot has changed compared to V2, so re-reading the code or documentation is highly recommended before you start
-// developing and updating plugins. There is a guide on how to migrate plugins from API V2 to API V3. 
+// developing and updating plugins. There is a guide on how to migrate plugins from API V2 to API V3.
 
 // Important note on the file structure of impress.js, as it has changed with V3:
 // -------------------------------------------------------------------------------
@@ -37,6 +37,7 @@ class ImpressNotSupportedError extends Error {}
 class ImpressInitError extends Error {}
 
 class ImpressConfig {
+    // eslint-disable-next-line max-params
     constructor( width, height, perspective, transitionDuration, maxScale, minScale ) {
         this.width = width;
         this.height = height;
@@ -153,7 +154,7 @@ window.impress = ( impressConfig ) => {
             rotation: rotation,
             id: DOMElementID
         };
-        _positionElements();
+        positionElements();
 
         // Dispatch event that an element was added
         document.dispatchEvent( new Event( 'impress:addedElement' ) );
@@ -173,7 +174,7 @@ window.impress = ( impressConfig ) => {
         } catch ( err ) {
             return false;
         }
-        _positionElements();
+        positionElements();
         // Dispatch event that an element was removed
         document.dispatchEvent( new Event( 'impress:removedElement' ) );
 
@@ -184,7 +185,7 @@ window.impress = ( impressConfig ) => {
      * Internal function that positions elements on the canvas. Called every time a element is added / removed
      * @returns {undefined}
      */
-    const _positionElements = () => {
+    const positionElements = () => {
         // Gets current position and calls moveTo function
         moveTo( getCurrentPos().coordinates, getCurrentPos().rotation );
     };
@@ -232,18 +233,16 @@ window.impress = ( impressConfig ) => {
      * Use this function to get the current impress config
      * @returns {ImpressConfig} Returns the current impress config
      */
-    const getCurrentConfig = () => {
-        return impressConfig;
-    }
+    const getCurrentConfig = () => impressConfig;
 
     /**
      * Update the impress config.
-     * @param {ImpressConfig} impressConfig The new impress config
+     * @param {ImpressConfig} impressConfigs The new impress config
      * @returns {undefined} Returns nothing
      */
-    const updateConfig = ( impressConfig ) => {
-        impressConfig = impressConfig;
-    }
+    const updateConfig = ( impressConfigs ) => {
+        impressConfig = impressConfigs;
+    };
 
     // Return all functions that are exposed by impress. This is superior to using classes as we can control what functions we expose.
     return {
