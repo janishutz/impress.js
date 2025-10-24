@@ -6,7 +6,7 @@
  * in modern browsers and inspired by the idea behind prezi.com.
  *
  *
- * Copyright 2011-2012 Bartek Szopka (@bartaz), 2016-2024 Henrik Ingo (@henrikingo), 2024 Janis Hutz
+ * Copyright 2011-2012 Bartek Szopka (@bartaz), 2016-present Henrik Ingo (@henrikingo), 2025-present Janis Hutz
  * and 70+ other contributors
  *
  * Released under the MIT License.
@@ -63,9 +63,10 @@ window.impressVectorUtil = () => {
      * @param {Vector} vec The vector of which to calculate the norm
      * @returns {number} Returns the norm
      */
-    var norm = function( vec ) {
-        return Math.sqrt( ( vec.x * vec.x ) + ( vec.y * vec.y ) + ( vec.z * vec.z ) );
-    };
+    const norm = ( vec ) => Math.sqrt( ( vec.x * vec.x ) + ( vec.y * vec.y ) + ( vec.z * vec.z ) );
+
+
+    const baseChange = ( angle ) => {};
 
     return {
         norm,

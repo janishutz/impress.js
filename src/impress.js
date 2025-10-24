@@ -58,6 +58,16 @@ window.impress = ( impressConfig ) => {
     // So I had it shut up
     // eslint-disable-next-line prefer-const
     let initializedElements = {};
+    const cameraPosition = {
+        'x': 0,
+        'y': 0,
+        'z': 0
+    };
+    const cameraRotation = {
+        'x': 0,
+        'y': 0,
+        'z': 0
+    };
 
     // Check if impress is supported. We use the CSS.supports API which is supported in all
     // browsers except IE, for which we dropped support with V3 to move forward with state-of-the-art
@@ -65,7 +75,11 @@ window.impress = ( impressConfig ) => {
     // eslint-disable-next-line no-warning-comments
     // TODO: Add additional required elements to checks as well
 
-    const isImpressSupported = ( CSS !== undefined ) && CSS.supports( 'perspective', '100px' ) && ( document.body.classList ) && document.body.dataset;
+    const isImpressSupported = ( CSS !== undefined ) &&
+        CSS.supports( 'perspective', '100px' ) &&
+        ( document.body.classList ) &&
+        document.body.dataset;
+
     if ( !isImpressSupported ) {
         // We can't be sure that classList exists, so let's better not use it
         document.body.className += ' impress-not-supported';
@@ -114,6 +128,7 @@ window.impress = ( impressConfig ) => {
         console.log( impressMain.dataset );
         // If config is passed in via argument, don't use the dataset from the main div, otherwise, parse it
         if ( !impressConfig ) {
+            // TODO: Initialize
             impressConfig = new ImpressConfig();
         }
 
@@ -149,6 +164,8 @@ window.impress = ( impressConfig ) => {
         rotation.x = rotation.x ?? 0;
         rotation.y = rotation.y ?? 0;
         rotation.z = rotation.z ?? 0;
+
+        // Keep track of all elements
         initializedElements[ DOMElementID ] = {
             coordinates: coordinates,
             rotation: rotation,
@@ -226,7 +243,7 @@ window.impress = ( impressConfig ) => {
      * @returns {object} Returns an object that contains an object of the coordinates and rotation:
      * { coordinates: { x: number, y: number, z: number }, rotation: { x: number, y: number, z: number }
      */
-    const getCurrentPos = () => ( { coordinates: { x: 0, y: 0, z: 0 }, rotation: { x: 0, y: 0, z: 0 } } );
+    const getCurrentPos = () => ( { coordinates: cameraPosition, rotation: cameraRotation } );
 
 
     /**
@@ -238,10 +255,14 @@ window.impress = ( impressConfig ) => {
     /**
      * Update the impress config.
      * @param {ImpressConfig} impressConfigs The new impress config
-     * @returns {undefined} Returns nothing
+     * @returns {void} Returns nothing
      */
     const updateConfig = ( impressConfigs ) => {
         impressConfig = impressConfigs;
+    };
+
+    const tear = () => {
+        // TODO: Implement
     };
 
     // Return all functions that are exposed by impress. This is superior to using classes as we can control what functions we expose.
@@ -253,6 +274,7 @@ window.impress = ( impressConfig ) => {
         addElement,
         getCurrentPos,
         getCurrentConfig,
-        updateConfig
+        updateConfig,
+        tear
     };
 };
